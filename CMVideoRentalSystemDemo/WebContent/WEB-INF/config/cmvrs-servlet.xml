@@ -1,0 +1,91 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<beans 	xmlns="http://www.springframework.org/schema/beans"
+	   	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
+	   	xmlns:context="http://www.springframework.org/schema/context"
+	  	xmlns:tx="http://www.springframework.org/schema/tx"
+		xsi:schemaLocation="
+http://www.springframework.org/schema/beans
+http://www.springframework.org/schema/beans/spring-beans-4.0.xsd
+http://www.springframework.org/schema/context
+http://www.springframework.org/schema/context/spring-context-4.0.xsd
+http://www.springframework.org/schema/tx
+http://www.springframework.org/schema/tx/spring-tx-4.0.xsd">
+
+<context:property-placeholder location="classpath:resource/database.properties" />
+ 
+<context:component-scan base-package="com.cmvrs   " />
+
+<tx:annotation-driven transaction-manager="hibernateTransactionManager"/>
+
+	<bean id="jspViewResolver" class="org.springframework.web.servlet.view.InternalResourceViewResolver">
+	
+		<property name="viewClass" value="org.springframework.web.servlet.view.JstlView" />
+		<property name="prefix" value="/WEB-INF/views/" />
+		<property name="suffix" value=".jsp" />
+		
+	</bean>
+
+	
+		
+	<!-- <bean class="org.springframework.web.servlet.handler.SimpleMappingExceptionResolver">
+		<property name="exceptionMappings">
+			<props>
+				<prop key="com.myList.ToDoListException">
+					ExceptionPage
+				</prop>
+			</props>
+		</property>
+		<property name="defaultErrorView" value="error"/>
+	</bean> -->
+
+	<bean id="dataSource"	class="org.springframework.jdbc.datasource.DriverManagerDataSource">
+	
+		<property name="driverClassName" value="${database.driver}" />
+		<property name="url" value="${database.url}" />
+		<property name="username" value="${database.user}" />
+		<property name="password" value="${database.password}" />
+		
+	</bean>
+
+	<bean id="sessionFactory" class="org.springframework.orm.hibernate4.LocalSessionFactoryBean">
+		
+		<property name="dataSource" ref="dataSource" />
+		<property name="annotatedClasses">
+		
+			<list>
+				<value>com.cmvrs.model.Person		</value>
+				<value>	com.cmvrs.model.Employee		</value>
+				<value>	com.cmvrs.model.Admin		</value>
+				<value>	com.cmvrs.model.Customer		</value>
+				<value>	com.cmvrs.model.Address		</value>
+				<value>	com.cmvrs.model.Video	</value>
+				<value>	com.cmvrs.model.Account	</value>
+				<value>	com.cmvrs.model.StockPrice		</value>
+				<value>	com.cmvrs.model.PersonnelStatus		</value>
+				<value>	com.cmvrs.model.ReserveVideo		</value>
+				<value>	com.cmvrs.model.VideoRental		</value>
+				<value>	com.cmvrs.model.Machine		</value>
+								
+				
+			</list>
+			
+		</property>
+		
+		<property name="hibernateProperties">
+		
+			<props>
+				<prop key="hibernate.dialect">${hibernate.dialect}</prop>
+				<prop key="hibernate.show_sql">${hibernate.show_sql}</prop>
+				<prop key="hibernate.hbm2ddl.auto">${hibernate.hbm2ddl.auto}</prop>				
+			</props>
+			
+		</property>
+	</bean>
+
+	<bean id="hibernateTransactionManager"	class="org.springframework.orm.hibernate4.HibernateTransactionManager">
+	
+		<property name="sessionFactory" ref="sessionFactory" />
+		
+	</bean>
+</beans>	

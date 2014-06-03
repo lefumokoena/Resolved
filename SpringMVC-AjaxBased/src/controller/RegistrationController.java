@@ -33,7 +33,13 @@ public class RegistrationController {
 		return new User();
 	}
 	
-	@RequestMapping(value = "/submituser",method=RequestMethod.POST )
+	@RequestMapping(value = "/",method = RequestMethod.GET)
+	public String letsSee()
+	{
+		return "form";
+	}
+	
+	@RequestMapping(value = "/submituser",method={RequestMethod.POST,RequestMethod.GET} )
 	public  @ResponseBody UserJsonResponse submitUser(@Valid User user,BindingResult bindingResult)
 	{
 		
@@ -49,7 +55,7 @@ public class RegistrationController {
 			
 			for (FieldError fieldError : fieldErrors) {
 				
-				String[] resolveMessageCodes = bindingResult.resolveMessageCodes(fieldError.getCode());
+				String[] resolveMessageCodes = bindingResult.resolveMessageCodes(fieldError.getCode(), fieldError.getCode());
 				
 				String string = resolveMessageCodes[0];
 				//System.out.println("resolveMessageCodes : "+string);
