@@ -3,8 +3,11 @@ package com.cmvrs.Testing;
 import static org.junit.Assert.*;
 
 import java.text.ParseException;
+import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
+import java.util.List;
+
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
@@ -170,10 +173,28 @@ public class StockVideoTestCase {
 	
 	public void setVideoToPrice()
 	{
-		video1.setStockPrice(stockPrice1);
-		video2.setStockPrice(stockPrice2);
-		video3.setStockPrice(stockPrice1);
-		video4.setStockPrice(stockPrice2);
+		List<Video> s = new ArrayList<Video>();
+		
+		s.add(video1);
+		s.add(video3);
+		
+		
+		List<Video> s1 = new ArrayList<Video>();
+		
+		
+		s.add(video2);
+		s.add(video2);
+		
+		stockPrice1.setVideo(s);
+		stockPrice2.setVideo(s1);
+		
+		/*video1.setStockPrice(s);
+		video2.setStockPrice(s1);
+		video3.setStockPrice(s);
+		video4.setStockPrice(s1);
+*/		
+		
+		
 	}
 	
 	@Test
