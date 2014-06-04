@@ -1,6 +1,7 @@
 package com.cmvrs.model;
 
 import java.io.Serializable;
+import java.util.List;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
@@ -8,7 +9,7 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.OneToOne;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
 @Entity
@@ -30,11 +31,11 @@ public class StockPrice implements Serializable
 
 	//Relationship
 	
-	@OneToOne(mappedBy = "stockPrice", cascade = CascadeType.ALL)
-	private Video video;
+	@OneToMany(mappedBy = "stockPrice", cascade = CascadeType.ALL)
+	private List<Video> video;
 	
-	@OneToOne(mappedBy = "stockPrice", cascade = CascadeType.ALL)
-	private Machine machine;
+	@OneToMany(mappedBy = "stockPrice", cascade = CascadeType.ALL)
+	private List<Machine> machine;
 	
 	//End Relationship
 	
@@ -43,19 +44,19 @@ public class StockPrice implements Serializable
 		return priceID;
 	}
 
-	public Video getVideo() {
+	public List<Video> getVideo() {
 		return video;
 	}
 
-	public void setVideo(Video video) {
+	public void setVideo(List<Video> video) {
 		this.video = video;
 	}
 
-	public Machine getMachine() {
+	public List<Machine> getMachine() {
 		return machine;
 	}
 
-	public void setMachine(Machine machine) {
+	public void setMachine(List<Machine> machine) {
 		this.machine = machine;
 	}
 
