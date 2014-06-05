@@ -47,8 +47,9 @@ public class ReserveVideo implements Serializable
 	private Date bookingDate;
 	
 	//Relationships
-	@ManyToMany(mappedBy = "reserveVideo", cascade = CascadeType.ALL)
-	private List<Customer> customer;
+	@ManyToOne
+	@JoinColumn(name = "personKey")
+	private Customer customer;
 	
 	@ManyToOne
 	@JoinColumn(name = "movieId")
@@ -99,11 +100,11 @@ public class ReserveVideo implements Serializable
 		this.bookingDate = bookingDate;
 	}
 
-	public List<Customer> getCustomer() {
+	public Customer getCustomer() {
 		return customer;
 	}
 
-	public void setCustomer(List<Customer> customer) {
+	public void setCustomer(Customer customer) {
 		this.customer = customer;
 	}
 

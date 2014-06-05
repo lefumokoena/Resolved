@@ -22,5 +22,9 @@
 			<attribute name="org.eclipse.jst.component.dependency" value="/WEB-INF/lib"/>
 		</attributes>
 	</classpathentry>
+	<classpathentry kind="lib" path="C:/Android/lib/spring-security-acl-3.0.1.RELEASE.jar"/>
+	<classpathentry kind="lib" path="C:/Android/lib/spring-security-config-3.0.1.RELEASE.jar"/>
+	<classpathentry kind="lib" path="C:/Android/lib/spring-security-core-3.0.7.RELEASE.jar"/>
+	<classpathentry kind="lib" path="C:/Android/lib/spring-security-web-3.0.1.RELEASE.jar"/>
 	<classpathentry kind="output" path="target/classes"/>
 </classpath>

@@ -2,9 +2,8 @@ package com.cmvrs.dao.impl;
 
 import java.util.List;
 
-import org.hibernate.Criteria;
+import org.hibernate.Query;
 import org.hibernate.SessionFactory;
-import org.hibernate.criterion.Restrictions;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Propagation;
@@ -37,17 +36,23 @@ public class PersonnelStatusDaoImpl implements PersonnelStatusDao
 	@SuppressWarnings("unchecked")
 	@Transactional(readOnly= true)
 	public List<PersonnelStatus> findPersonnelStatusByRole(String role) {
-		Criteria criteria = sessionFactory.getCurrentSession().createCriteria(PersonnelStatus.class);
+		/*Criteria criteria = sessionFactory.getCurrentSession().createCriteria(PersonnelStatus.class);
 
 		criteria.add(Restrictions.like("accessType", role));
 		
 		return (List<PersonnelStatus>)criteria.list();
-
+*/		
+		Query query = sessionFactory.getCurrentSession().getNamedQuery("PersonnelStatus.ByRole");
+		
+		query.setInteger(0, 1);
+			
+		return (List<PersonnelStatus>)query.list();
 	}
 
 	@SuppressWarnings("unchecked")
 	@Transactional(readOnly= true)
 	public List<PersonnelStatus> getAllPersonnelStatuss() {
+		
 		return (List<PersonnelStatus>)sessionFactory.getCurrentSession().createCriteria(PersonnelStatus.class).list();
 	}
 

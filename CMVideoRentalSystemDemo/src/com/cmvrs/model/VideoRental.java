@@ -3,6 +3,7 @@ package com.cmvrs.model;
 import java.io.Serializable;
 import java.util.Date;
 import java.util.List;
+
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -17,9 +18,14 @@ import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 import javax.validation.constraints.NotNull;
 
+import org.hibernate.annotations.NamedNativeQuery;
+import org.hibernate.annotations.NamedQuery;
+
 @Entity
 @Table(name = "tblVideoRental")
-public class VideoRental implements Serializable
+/*@NamedQuery(name="CustRental.ById", query = "from VideoRental v left join Customer c  on "
+				+ "c.personKey = v.personKey where v.personkey = ?")
+*/public class VideoRental implements Serializable
 {
 
 	private static final long serialVersionUID = -2500655592771719584L;
@@ -45,9 +51,14 @@ public class VideoRental implements Serializable
 	@Column(name = "tblVideoRental_RentalDate",nullable = false)
 	private Date rentalDate;
 	
+	@Temporal(TemporalType.TIMESTAMP)
+	@Column(name = "tblVideoRental_ReturnDate",nullable = false)
+	private Date returnDate;
+	
 	//Relationships
-	@ManyToMany(mappedBy = "videoRental", cascade = CascadeType.ALL)
-	private List<Customer> customer;
+	@ManyToOne
+	@JoinColumn(name = "PersonKey")
+	private Customer customer;
 	
 	@ManyToOne
 	@JoinColumn(name = "movieId")
@@ -109,11 +120,11 @@ public class VideoRental implements Serializable
 		this.rentalDate = rentalDate;
 	}
 
-	public List<Customer> getCustomer() {
+	public Customer getCustomer() {
 		return customer;
 	}
 
-	public void setCustomer(List<Customer> customer) {
+	public void setCustomer(Customer customer) {
 		this.customer = customer;
 	}
 
@@ -123,6 +134,18 @@ public class VideoRental implements Serializable
 
 	public void setVideo(Video video) {
 		this.video = video;
+	}
+
+	public Date getReturnDate() {
+		return returnDate;
+	}
+
+	public void setReturnDate(Date returnDate) {
+		this.returnDate = returnDate;
+	}
+
+	public String getMovieRentalStatus() {
+		return movieRentalStatus;
 	}
 	
 	

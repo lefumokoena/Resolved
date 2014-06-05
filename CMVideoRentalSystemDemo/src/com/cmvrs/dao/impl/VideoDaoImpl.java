@@ -36,7 +36,7 @@ public class VideoDaoImpl implements VideoDao
 		return (Video)sessionFactory.getCurrentSession().get(Video.class, video);
 	}
 
-	
+	@Transactional(readOnly= true)
 	@SuppressWarnings("unchecked")
 	public List<Video> findVideoByName(String name) {
 
@@ -47,8 +47,8 @@ public class VideoDaoImpl implements VideoDao
 		return (List<Video>)criteria.list();
 	}
 
-	@SuppressWarnings("unchecked")
-	
+	@Transactional(readOnly= true)
+	@SuppressWarnings("unchecked")	
 	public List<Video> getAllVideos() {
 		return (List<Video>)sessionFactory.getCurrentSession().createCriteria(Video.class).list();
 	}

@@ -3,18 +3,24 @@ package com.cmvrs.model;
 import java.io.Serializable;
 import java.util.List;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
+import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 import javax.persistence.PrimaryKeyJoinColumn;
 import javax.persistence.Table;
 
+import org.hibernate.annotations.NamedQuery;
+
 @Entity
 @Table(name = "tblCustomer")
 @PrimaryKeyJoinColumn(name = "personKey")
+//@NamedQuery(name = "")
 public class Customer extends Person implements Serializable
 {
 
@@ -46,14 +52,10 @@ public class Customer extends Person implements Serializable
 	inverseJoinColumns = @JoinColumn(name = "accessId"))
 	private List<PersonnelStatus> personnelStatus;
 	
-	@ManyToMany
-	@JoinTable(name = "CustomerAndVideoRentals",joinColumns = @JoinColumn(name ="personKey"),
-	inverseJoinColumns = @JoinColumn(name = "rentalId"))
+	@OneToMany(mappedBy = "customer",fetch = FetchType.EAGER,cascade = CascadeType.ALL)
 	private List<VideoRental> videoRental;
 
-	@ManyToMany
-	@JoinTable(name = "CustomerAndVideoReserve",joinColumns = @JoinColumn(name ="personKey"),
-	inverseJoinColumns = @JoinColumn(name = "reserveId"))
+	@OneToMany(mappedBy="customer",cascade = CascadeType.ALL)
 	private List<ReserveVideo> reserveVideo;
 
 	

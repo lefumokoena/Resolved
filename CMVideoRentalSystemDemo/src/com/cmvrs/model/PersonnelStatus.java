@@ -10,6 +10,7 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.ManyToMany;
+import javax.persistence.NamedNativeQuery;
 import javax.persistence.Table;
 import javax.validation.constraints.NotNull;
 
@@ -18,7 +19,8 @@ import org.hibernate.annotations.NamedQuery;
 @Entity
 @Table(name = "tblPersonnelStatus")
 @NamedQuery(name ="PersonnelStatus.ByRole", 
-			query ="from PersonnelStatus where accessType = :role")
+			query ="from PersonnelStatus where accessId = ? ")
+//@NamedNativeQuery(name="")
 public class PersonnelStatus implements Serializable
 {
 
